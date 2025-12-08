@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Brittany & Chris — Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #fefefe;
+      --bg2: #fffaf6;
+      --accent: #b98a6f;
+      --muted: #6b6b6b;
+      --glass: rgba(255,255,255,0.65);
+      --shadow: 0 6px 30px rgba(16,16,16,0.08);
+      --max-width: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color:#222;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* animated soft gradient */
+    .bg-animated{
+      position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background: linear-gradient(120deg, rgba(185,138,111,0.06), rgba(108,122,138,0.02));
+      animation: pan 16s linear infinite;
+      filter: blur(30px) saturate(1.02);
+    }
+    @keyframes pan{
+      0%{transform:translate3d(-8vw,-6vw,0) rotate(0deg)}
+      50%{transform:translate3d(8vw,6vw,0) rotate(4deg)}
+      100%{transform:translate3d(-8vw,-6vw,0) rotate(0deg)}
+    }
+
+    /* container */
+    .wrap{max-width:var(--max-width);margin:0 auto;padding:64px 24px;}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .logo{font-family:Playfair Display,serif;font-size:20px;letter-spacing:0.06em}
+    nav a{margin-left:18px;color:var(--muted);text-decoration:none;font-weight:500}
+
+    main.hero{display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center;padding:40px 0}
+    @media (max-width:880px){main.hero{grid-template-columns:1fr;gap:28px;text-align:center}.wrap{padding:40px 18px}}
+
+    .hero-left{padding-right:12px}
+    h1{font-family:Playfair Display,serif;font-size:46px;margin:0 0 8px;line-height:1.02;color:#1b1b1b;opacity:0;transform:translateY(8px);animation:fadeUp 900ms ease forwards 200ms}
+    .sub{color:var(--muted);margin:0 0 28px;opacity:0;transform:translateY(6px);animation:fadeUp 900ms ease forwards 350ms}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
+
+    .date-pill{display:inline-block;background:var(--glass);backdrop-filter:blur(6px);padding:10px 14px;border-radius:999px;border:1px solid rgba(0,0,0,0.04);box-shadow:var(--shadow);font-weight:600;color:var(--accent);margin-bottom:18px}
+
+    .cta{display:flex;gap:12px;align-items:center}
+    .btn{padding:12px 20px;border-radius:12px;border:0;background:linear-gradient(90deg,var(--accent),#9e6b52);color:white;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(185,138,111,0.18);transition:transform .18s ease, box-shadow .18s ease}
+    .btn:hover{transform:translateY(-3px)}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--muted);padding:10px 16px;border-radius:12px}
+
+    /* card on right */
+    .info-card{background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.7));border-radius:14px;padding:26px;box-shadow:var(--shadow);backdrop-filter: blur(6px);opacity:0;transform:translateY(10px) scale(.995);animation:fadeUp 900ms ease forwards 500ms}
+    .couple{display:flex;gap:12px;align-items:center}
+    .avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(180deg,#ffece3,#fff6f2);display:flex;align-items:center;justify-content:center;font-family:Playfair Display;color:var(--accent);font-weight:700;box-shadow:inset 0 -6px 12px rgba(0,0,0,0.02)}
+    .small{color:var(--muted);font-size:14px}
+    .venue{margin-top:14px;font-weight:600}
+
+    /* subtle floating svg */
+    .floral{position:absolute;right:6%;top:14%;width:240px;opacity:.12;transform-origin:center;animation:float 8s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(8px) rotate(2deg)}100%{transform:translateY(0) rotate(-2deg)}}
+
+    footer{padding:32px 0;text-align:center;color:var(--muted);font-size:13px}
+
+    /* subtle underline animation for nav */
+    nav a{position:relative}
+    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--accent);transition:width .28s ease}
+    nav a:hover::after{width:100%}
+
+    /* tiny scroll indicator */
+    .scroll-hint{display:inline-block;margin-top:18px;font-size:13px;color:var(--muted);opacity:.9}
+
+  </style>
+</head>
+<body>
+  <div class="bg-animated" aria-hidden="true"></div>
+  <!-- decorative svg (low-contrast) -->
+  <svg class="floral" viewBox="0 0 200 200" aria-hidden="true">
+    <defs>
+      <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#b98a6f" stop-opacity="0.25"/><stop offset="1" stop-color="#d8c7b8" stop-opacity="0.05"/></linearGradient>
+    </defs>
+    <g fill="url(#g)">
+      <circle cx="40" cy="40" r="36"/>
+      <path d="M150 80c-24 8-36 28-28 48 12 28 52 18 64-6 10-20-12-44-36-42z"/>
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <header>
+      <div class="logo">Brittany &amp; Chris</div>
+      <nav>
+        <a href="#">Our story</a>
+        <a href="#">Venue</a>
+        <a href="#">RSVP</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <section class="hero-left">
+        <div class="date-pill">Saturday • August 1, 2026</div>
+        <h1>We’re getting married</h1>
+        <p class="sub">Join us for a day of celebration, good food, and dancing. More details coming soon — save the date.</p>
+
+        <div class="cta">
+          <button class="btn" onclick="location.href='#'">RSVP</button>
+          <button class="btn-ghost" onclick="location.href='#'">Learn more</button>
+        </div>
+
+        <div class="scroll-hint">Scroll to preview invitation ↓</div>
+      </section>
+
+      <aside class="info-card" aria-label="Quick details">
+        <div class="couple">
+          <div class="avatar">A &amp; J</div>
+          <div>
+            <div style="font-weight:600">A &amp; J</div>
+            <div class="small">Together with their families</div>
+          </div>
+        </div>
+        <div class="venue">
+          <div class="small">Venue</div>
+          <div>Riverside House — Town, Country</div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> [Name] &amp; [Name] — All rights reserved
+    </footer>
+  </div>
+
+  <script>
+    // small runtime polish
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mouse parallax for subtle depth on wide screens
+    if (window.matchMedia('(min-width:880px)').matches) {
+      const floral = document.querySelector('.floral');
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 24; 
+        const y = (e.clientY / window.innerHeight - 0.5) * 12;
+        floral.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(-2deg)`;
+      });
+    }
+  </script>
+</body>
+</html>
