@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+  <rect width="1200" height="600" fill="#fff6f2"/>
+  <g fill="#b98a6f" opacity="0.12">
+    <circle cx="100" cy="100" r="120"/>
+    <circle cx="1100" cy="120" r="160"/>
+    <circle cx="900" cy="450" r="220"/>
+  </g>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Playfair Display, serif" font-size="40" fill="#b98a6f">A & J — Wedding</text>
+</svg>
