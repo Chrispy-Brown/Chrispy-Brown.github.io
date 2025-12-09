@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Our Wedding — [Name] & [Name]</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#b56576;--muted:#6b6b6b;--bg:#fff;--glass: rgba(255,255,255,0.75)}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; color:#222; background:linear-gradient(180deg,#fff 0%, #fbf7f8 100%); -webkit-font-smoothing:antialiased}
+    a{color:var(--accent); text-decoration:none}
+
+    /* Container */
+    .container{max-width:1100px;margin:0 auto;padding:40px 20px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;padding:60px 20px;border-radius:16px;margin-bottom:30px;position:relative;overflow:hidden}
+    .hero-inner{background:linear-gradient(180deg, rgba(181,101,118,0.05), rgba(181,101,118,0.02));padding:48px;border-radius:14px;backdrop-filter:blur(4px);box-shadow:0 8px 30px rgba(20,20,20,0.06)}
+    h1{font-family:'Playfair Display',serif;font-size:44px;margin:0 0 8px;color:#2b2b2b}
+    .sub{color:var(--muted);font-size:16px}
+    .meta{margin-top:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .pill{background:var(--glass);padding:8px 12px;border-radius:999px;font-weight:600;border:1px solid rgba(0,0,0,0.04)}
+
+    /* Countdown */
+    .countdown{display:flex;gap:12px;margin-top:18px}
+    .countdown .item{background:linear-gradient(180deg,#fff,#fff);padding:10px 14px;border-radius:12px;min-width:64px;text-align:center;box-shadow:0 6px 18px rgba(15,15,15,0.05)}
+    .countdown .num{font-weight:700;font-size:20px}
+    .countdown .label{color:var(--muted);font-size:12px}
+
+    /* Nav */
+    .nav{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+    .nav a{padding:8px 14px;border-radius:12px;background:transparent;border:1px solid rgba(0,0,0,0.04)}
+
+    /* Sections */
+    section{padding:48px 0;border-top:1px dashed rgba(0,0,0,0.04)}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:28px}
+    .card{background:#fff;padding:22px;border-radius:12px;box-shadow:0 6px 24px rgba(16,16,16,0.04)}
+
+    .event-list{display:flex;flex-direction:column;gap:14px}
+    .event{display:flex;gap:12px;align-items:flex-start}
+    .event .time{font-weight:700;color:var(--accent);min-width:110px}
+
+    /* RSVP */
+    form.rsvp{display:flex;flex-direction:column;gap:10px}
+    input,textarea,select{padding:12px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);font-size:14px}
+    button.cta{background:var(--accent);color:#fff;padding:12px 18px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+
+    /* FAQ */
+    .faq{display:flex;flex-direction:column;gap:10px}
+    .qa{border-radius:10px;overflow:hidden}
+    .q{background:linear-gradient(90deg,rgba(181,101,118,0.06),transparent);padding:12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+    .a{padding:12px;border-top:1px solid rgba(0,0,0,0.04);display:none}
+
+    /* Photos */
+    .photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .photos img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+
+    /* Footer */
+    footer{padding:28px 0;color:var(--muted);text-align:center}
+
+    /* Animations & reveal */
+    .reveal{opacity:0;transform:translateY(14px);transition:all 700ms cubic-bezier(.2,.9,.3,1)}
+    .reveal.visible{opacity:1;transform:none}
+    .glow{transition:box-shadow .25s ease}
+    .glow:hover{box-shadow:0 12px 40px rgba(181,101,118,0.12)}
+
+    /* Responsive */
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.photos{grid-template-columns:repeat(2,1fr)} .hero{padding:36px}}
+    @media (max-width:520px){h1{font-size:32px}.photos img{height:110px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero reveal" id="home">
+      <div class="hero-inner">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <h1 id="couple-names">[Name] &amp; [Name]</h1>
+            <div class="sub">We're getting married — join us on <strong id="wedding-date">August 1, 2026</strong> in <span id="wedding-location">[City, Country]</span></div>
+            <div class="meta">
+              <div class="pill">Ceremony &amp; Reception</div>
+              <div class="pill">Formal Attire</div>
+            </div>
+
+            <div class="countdown" style="margin-top:14px" id="countdown">
+              <div class="item"><div class="num" id="cd-days">--</div><div class="label">Days</div></div>
+              <div class="item"><div class="num" id="cd-hours">--</div><div class="label">Hours</div></div>
+              <div class="item"><div class="num" id="cd-mins">--</div><div class="label">Minutes</div></div>
+              <div class="item"><div class="num" id="cd-secs">--</div><div class="label">Seconds</div></div>
+            </div>
+          </div>
+          <div style="min-width:220px;display:flex;flex-direction:column;gap:10px;align-items:center">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=640&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="couple" style="width:220px;height:220px;object-fit:cover;border-radius:14px;border:6px solid rgba(255,255,255,0.6);box-shadow:0 8px 30px rgba(20,20,20,0.06)"/>
+            <nav class="nav">
+              <a href="#story">Our Story</a>
+              <a href="#schedule">Schedule</a>
+              <a href="#travel">Travel</a>
+              <a href="#rsvp">RSVP</a>
+              <a href="#faq">FAQ</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="story" class="reveal">
+        <div class="container" style="padding:0">
+          <div class="grid">
+            <div>
+              <h2 style="font-family:'Playfair Display',serif;margin-top:0">Our Story</h2>
+              <p class="sub">How we met, the proposal and the moments that brought us here.</p>
+              <div class="card" style="margin-top:16px">
+                <p style="margin:0 0 12px">We met on a sunny day in 2018 — coffee turned into dinner, then into adventures around the world. After five wonderful years together, [Name] proposed under the stars. We're excited to celebrate with family and friends.</p>
+                <p style="margin:0;color:var(--muted)">Timeline:</p>
+                <ul style="margin-top:8px">
+                  <li><strong>2018</strong> — Met in [City].</li>
+                  <li><strong>2021</strong> — Moved in together.</li>
+                  <li><strong>2024</strong> — Engagement.</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside>
+              <div class="card glow">
+                <h3 style="margin-top:0">Event Details</h3>
+                <div class="event-list">
+                  <div class="event">
+                    <div class="time">4:00 PM</div>
+                    <div>
+                      <div style="font-weight:700">Ceremony</div>
+                      <div class="sub">St. Mary's Church — 123 Church Lane, City</div>
+                    </div>
+                  </div>
+                  <div class="event">
+                    <div class="time">6:00 PM</div>
+                    <div>
+                      <div style="font-weight:700">Reception</div>
+                      <div class="sub">The Garden Hall — 55 Garden Rd</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="margin-top:12px;display:flex;gap:8px">
+                  <a class="pill" href="#travel">Travel Info</a>
+                  <a class="pill" href="#rsvp">RSVP</a>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="schedule" class="reveal">
+        <div class="container" style="padding:0">
+          <h2 style="font-family:'Playfair Display',serif;margin-top:0">Schedule</h2>
+          <p class="sub">A quick timeline of the day's events.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
+            <div class="card" style="flex:1;min-width:240px">
+              <h4 style="margin:4px 0">Ceremony</h4>
+              <p class="sub">4:00 PM — St. Mary's Church</p>
+            </div>
+            <div class="card" style="flex:1;min-width:240px">
+              <h4 style="margin:4px 0">Cocktail Hour</h4>
+              <p class="sub">5:00 PM — Garden Terrace</p>
+            </div>
+            <div class="card" style="flex:1;min-width:240px">
+              <h4 style="margin:4px 0">Reception</h4>
+              <p class="sub">6:00 PM — The Garden Hall</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="travel" class="reveal">
+        <div class="container" style="padding:0">
+          <div class="grid">
+            <div>
+              <h2 style="font-family:'Playfair Display',serif;margin-top:0">Travel &amp; Accommodation</h2>
+              <p class="sub">Where to stay and how to get there.</p>
+              <div class="card" style="margin-top:16px">
+                <p><strong>Nearest airport:</strong> City International (CIT) — 20 minutes by taxi.</p>
+                <p><strong>Recommended hotels:</strong></p>
+                <ul>
+                  <li>Hotel Rose — 10 min from venue</li>
+                  <li>City Inn — Budget friendly</li>
+                </ul>
+                <p class="sub">We'll add a map here; you can replace the image with your own embed if you prefer.</p>
+              </div>
+            </div>
+
+            <aside>
+              <div class="card">
+                <h3 style="margin-top:0">Local Info</h3>
+                <p class="sub">Parking, accessibility and brief tips for guests.</p>
+                <ul>
+                  <li>Parking available at the venue.</li>
+                  <li>Wheelchair accessible entrances.</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="rsvp" class="reveal">
+        <div style="padding:0" class="container">
+          <h2 style="font-family:'Playfair Display',serif;margin-top:0">RSVP</h2>
+          <p class="sub">Please let us know if you'll be joining.</p>
+          <div class="card" style="margin-top:12px">
+            <form class="rsvp" onsubmit="submitRSVP(event)">
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <input type="text" id="guest-name" placeholder="Your full name" required style="flex:2" />
+                <input type="email" id="guest-email" placeholder="Email" required style="flex:1" />
+              </div>
+              <div style="display:flex;gap:8px;margin-top:8px">
+                <select id="guest-attending" required>
+                  <option value="">-- Will you attend? --</option>
+                  <option value="yes">Yes, can’t wait!</option>
+                  <option value="no">No, sorry</option>
+                </select>
+                <input type="text" id="guest-diet" placeholder="Dietary needs (optional)" />
+              </div>
+              <textarea id="guest-note" placeholder="Message (optional)" rows="3"></textarea>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button class="cta" type="submit">Send RSVP</button>
+                <div id="rsvp-msg" class="sub" style="margin-left:10px"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="reveal">
+        <div class="container" style="padding:0">
+          <h2 style="font-family:'Playfair Display',serif;margin-top:0">Frequently Asked Questions</h2>
+          <p class="sub">A few answers to common questions guests often ask.</p>
+          <div class="card" style="margin-top:16px">
+            <div class="faq">
+              <div class="qa">
+                <div class="q">What should I wear? <span class="muted">(click)</span></div>
+                <div class="a">We recommend formal attire / cocktail dress. The reception will be partly outdoors — smart shoes advised.</div>
+              </div>
+
+              <div class="qa">
+                <div class="q">Can I bring a guest?</div>
+                <div class="a">Please check your invitation — if a plus one was included, we'd love for them to join. Otherwise, reach out to us directly.</div>
+              </div>
+
+              <div class="qa">
+                <div class="q">Is parking available?</div>
+                <div class="a">Yes — there is parking at the venue and nearby streets. Valet may be available at the reception venue.</div>
+              </div>
+
+              <div class="qa">
+                <div class="q">Are children invited?</div>
+                <div class="a">Children are welcome at the ceremony, but the reception is adults only. Please contact us if childcare is a concern.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="photos" class="reveal">
+        <div class="container" style="padding:0">
+          <h2 style="font-family:'Playfair Display',serif;margin-top:0">Photos</h2>
+          <p class="sub">A few of our favourite moments.</p>
+          <div class="card" style="margin-top:12px">
+            <div class="photos">
+              <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="photo1"/>
+              <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="photo2"/>
+              <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="photo3"/>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="reveal">
+      <div class="container" style="padding:0">
+        <p>Made with ♥ by [Name] &amp; [Name]. Questions? <a href="mailto:you@example.com">you@example.com</a></p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const href=a.getAttribute('href');
+        if(href.startsWith('#')){
+          e.preventDefault();
+          document.querySelector(href)?.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      });
+    });
+
+    // Simple reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); } });
+    },{threshold:0.12});
+    reveals.forEach(r=>obs.observe(r));
+
+    // FAQ toggle
+    document.querySelectorAll('.qa').forEach(node=>{
+      const q=node.querySelector('.q'); const a=node.querySelector('.a');
+      q.addEventListener('click',()=>{ const opened = a.style.display === 'block';
+        if(opened){ a.style.display='none'; q.setAttribute('aria-expanded','false'); }
+        else{ a.style.display='block'; q.setAttribute('aria-expanded','true'); }
+      });
+    });
+
+    // Simple RSVP handler (local-only; replace with your backend endpoint)
+    function submitRSVP(e){
+      e.preventDefault();
+      const name = document.getElementById('guest-name').value.trim();
+      const email = document.getElementById('guest-email').value.trim();
+      const attending = document.getElementById('guest-attending').value;
+      const note = document.getElementById('guest-note').value.trim();
+      const msg = document.getElementById('rsvp-msg');
+      // Basic validation
+      if(!name || !email || !attending){ msg.textContent = 'Please complete required fields.'; return; }
+      // For demonstration we'll store RSVPs in localStorage (so site works without server). In production, POST to your server.
+      const rsvps = JSON.parse(localStorage.getItem('rsvps')||'[]');
+      rsvps.push({name,email,attending,note,timestamp:new Date().toISOString()});
+      localStorage.setItem('rsvps', JSON.stringify(rsvps));
+      msg.textContent = 'Thanks — your RSVP is recorded.';
+      e.target.reset();
+    }
+
+    // Countdown timer
+    (function(){
+      // Default wedding date; change this to the real date
+      const wedding = new Date(document.getElementById('wedding-date').textContent + ' 12:00:00');
+      function update(){
+        const now = new Date();
+        const diff = wedding - now;
+        if(diff<=0){ document.getElementById('countdown').innerHTML = '<div style="font-weight:700">It\'s today!</div>'; clearInterval(interval); return; }
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor(diff / (1000*60*60) % 24);
+        const mins = Math.floor(diff / (1000*60) % 60);
+        const secs = Math.floor(diff / 1000 % 60);
+        document.getElementById('cd-days').textContent = days;
+        document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+        document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+        document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+      }
+      update();
+      const interval = setInterval(update,1000);
+    })();
+
+    // Tiny parallax effect for hero based on mouse
+    (function(){
+      const hero = document.querySelector('.hero-inner');
+      if(!hero) return;
+      hero.addEventListener('mousemove', e=>{
+        const r = hero.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        hero.style.transform = `translate3d(${x*6}px,${y*6}px,0)`;
+      });
+      hero.addEventListener('mouseleave', ()=>{ hero.style.transform='none'; });
+    })();
+
+    // Accessibility: allow Enter key to toggle FAQ when focused
+    document.querySelectorAll('.q').forEach(el=>{ el.tabIndex = 0; el.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); el.click(); } }); });
+  </script>
+</body>
+</html>
