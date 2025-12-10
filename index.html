@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
+<!-- Edited for responsive/mobile + FAQ fixes -->
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Brittany & Christopher — Wedding</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <meta name="description" content="Wedding details for Brittany & Christopher" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Brittany &amp; Christopher — Wedding</title>
+  <meta name="description" content="Wedding details for Brittany &amp; Christopher">
   <style>
     :root{
       --accent:#b76e79;
@@ -17,13 +17,34 @@
     body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;line-height:1.5;margin:0;color:#222;background:#fff}
     .container{max-width:var(--max-width);margin:0 auto;padding:28px}
 
+    /* Responsive tweaks */
+    @media(max-width:600px){
+      .container{padding:16px}
+    }
+
     /* Hero */
-    .hero{min-height:56vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.25)), url('hero.jpg') center/cover no-repeat;color:#fff;border-radius:12px;overflow:hidden}
+    .hero{
+      min-height:56vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.25)), url('hero.jpg') center/cover no-repeat;
+      color:#fff;border-radius:12px;overflow:hidden
+    }
     .hero-inner{padding:48px;text-align:center}
     .couple{font-family:'Playfair Display',serif;font-size:40px;letter-spacing:0.4px;margin:0}
-    .date{margin-top:8px;color:rgba(255,255,255,0.9);font-weight:600}
+    .date{margin-top:8px;color:rgba(255,255,255,0.95);font-weight:600}
     .cta{margin-top:20px}
     .btn{display:inline-block;padding:12px 20px;background:var(--accent);color:#fff;border-radius:999px;text-decoration:none;font-weight:600;box-shadow:0 6px 20px rgba(183,110,121,0.18)}
+
+    /* Scale hero text on small screens */
+    @media(max-width:600px){
+      .hero{min-height:40vh}
+      .hero-inner{padding:28px}
+      .couple{font-size:26px}
+      .date{font-size:14px}
+      .btn{padding:10px 16px;font-size:14px}
+    }
 
     /* Grid sections */
     .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:26px}
@@ -39,7 +60,10 @@
 
     .map{height:200px;border-radius:8px;overflow:hidden}
 
-    .side .card{position:sticky;top:28px}
+    /* only sticky on wider viewports */
+    @media(min-width:880px){
+      .side .card{position:sticky;top:28px}
+    }
 
     footer{margin:36px 0 120px 0;text-align:center;color:#888}
 
@@ -56,65 +80,70 @@
     /* pretty divider */
     .divider{height:1px;background:linear-gradient(90deg,transparent,#eee,transparent);margin:18px 0;border-radius:2px}
 
-/* FAQ styles — paste into existing <style> */
-  .faq { margin-top: 18px; }
-.faq h2 { margin-bottom: 8px; }
+    /* make iframe responsive */
+    .embed-wrap{width:100%;border-radius:8px;overflow:hidden;position:relative;padding-top:56.25% /* 16:9 */;}
+    .embed-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 
-/* details/summary baseline styling */
-.faq details {
-  border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  background: #fff;
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 6px 20px rgba(24,24,24,0.03);
-}
-.faq summary {
-  list-style: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  outline: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.faq summary::-webkit-details-marker { display: none; } /* hide default marker in webkit */
+    /* FAQ styles — improved */
+    .faq { margin-top: 18px; }
+    .faq h2 { margin-bottom: 8px; }
 
-.faq .faq-body {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 15px;
-}
+    /* details/summary baseline styling */
+    .faq details {
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #fff;
+      border: 1px solid #f0f0f0;
+      box-shadow: 0 6px 20px rgba(24,24,24,0.03);
+    }
+    /* summary is a flex container: question left, chevron right */
+    .faq summary {
+      list-style: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      outline: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .faq summary::-webkit-details-marker { display: none; } /* hide default marker in webkit */
 
-/* small chevron icon (rotates on open) */
-.faq .chev {
-  transition: transform .22s ease;
-  transform-origin: center;
-  font-size: 14px;
-  color: var(--accent-dark);
-}
-details[open] .chev { transform: rotate(180deg); }
+    .faq .faq-body {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 15px;
+    }
 
-/* Optional: subtle hover/focus styles for keyboard users */
-.faq summary:focus, .faq summary:hover {
-  outline: none;
-  text-decoration: none;
-}
+    /* chevron rotates when open */
+    .faq .chev {
+      transition: transform .22s ease;
+      transform-origin: center;
+      font-size: 14px;
+      color: var(--accent-dark);
+      display:inline-block;
+      line-height:1;
+    }
+    details[open] .chev { transform: rotate(180deg); }
 
+    /* subtle hover/focus styles for keyboard users */
+    .faq summary:focus, .faq summary:hover {
+      outline: none;
+      text-decoration: none;
+    }
 
+    /* small nicety: prevent the details content from stacking too close on tiny screens */
+    @media(max-width:420px){
+      .faq details{padding:10px}
+      .faq summary{font-size:15px}
+      .faq .faq-body{font-size:14px}
+    }
   </style>
 </head>
 <body>
-  <!--
-    Single-file wedding page. To customize:
-      - Replace hero.jpg with your cover photo (or change the URL).
-      - Replace text content (names, date, venue, schedule) as needed.
-      - Replace HONEYFUND_LINK below with your Honeyfund URL.
-      - This is intentionally minimal and self-hostable (drop into an S3/GitHub Pages site).
-  -->
-
   <div class="container">
     <header class="hero" role="banner">
       <div class="hero-inner">
@@ -140,7 +169,7 @@ details[open] .chev { transform: rotate(180deg); }
             <div class="small muted">Wetheral Church</div>
           </li>
           <li>
-            <strong>Drinks & Photos — 4:00pm</strong>
+            <strong>Drinks &amp; Photos — 4:00pm</strong>
             <div class="small muted">The Garden Terrace</div>
           </li>
           <li>
@@ -155,7 +184,7 @@ details[open] .chev { transform: rotate(180deg); }
 
         <div class="divider"></div>
 
-        <h2>Travel & Accommodations</h2>
+        <h2>Travel &amp; Accommodations</h2>
         <p class="muted">Nearest airport: Newcastle. We have a room block at The Parkside Hotel — mention "Warren-Brown Wedding" when booking. For taxi or rideshares, plan ~45 minutes from central London at peak times.</p>
 
         <div class="divider"></div>
@@ -169,42 +198,49 @@ details[open] .chev { transform: rotate(180deg); }
 
         <div class="divider"></div>
 
-        <section class=" faq" id="faq">
+        <section class="faq" id="faq">
           <h2>FAQ</h2>
-        
+
           <details>
-            <summary>What time should guests arrive?</summary>
+            <summary>
+              <span>What time should guests arrive?</span>
+              <span class="chev" aria-hidden="true">▾</span>
+            </summary>
             <div class="faq-body">
               Please aim to arrive 20–30 minutes before the ceremony start time so we can begin promptly.
             </div>
-            <span class="chev">▾</span>
           </details>
-        
+
           <details>
-            <summary>Is there a dress code?</summary>
+            <summary>
+              <span>Is there a dress code?</span>
+              <span class="chev" aria-hidden="true">▾</span>
+            </summary>
             <div class="faq-body">
               Semi-formal / cocktail attire. We recommend comfortable shoes for the garden terrace.
             </div>
-            <span class="chev">▾</span>
           </details>
-        
+
           <details>
-            <summary>Can I bring a plus one?</summary>
+            <summary>
+              <span>Can I bring a plus one?</span>
+              <span class="chev" aria-hidden="true">▾</span>
+            </summary>
             <div class="faq-body">
               Please check your invitation — plus-ones were listed on the invite. If you're unsure, email admin@cdjb.co.uk.
             </div>
-            <span class="chev">▾</span>
           </details>
-        
+
           <details>
-            <summary>Where should I park?</summary>
+            <summary>
+              <span>Where should I park?</span>
+              <span class="chev" aria-hidden="true">▾</span>
+            </summary>
             <div class="faq-body">
-              Parking is limited at the venue; we recommend rideshares or street parking nearby. See the Travel & Accommodations section for hotel details.
+              Parking is limited at the venue; we recommend rideshares or street parking nearby. See the Travel &amp; Accommodations section for hotel details.
             </div>
-            <span class="chev">▾</span>
           </details>
         </section>
-
 
         <h2 id="rsvp">RSVP</h2>
         <p class="small muted">Please RSVP by April 30, 2025.</p>
@@ -227,15 +263,15 @@ details[open] .chev { transform: rotate(180deg); }
 
       </section>
 
-      
-
       <aside class="side">
         <div class="card">
           <h2>Venue</h2>
-          <p class="muted">Wetheral Parish Church<br/>Cumberland, UK</p>
+          <p class="muted">Wetheral Parish Church<br>Cumberland, UK</p>
           <div class="map" aria-hidden="true">
-            <!-- Replace the src of the iframe with the real Google Maps embed link for the venue -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d45553.04342882101!2d-2.8409856335877235!3d54.896216462546164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487d1b2ad8c7e1d7%3A0x213ea36c875eee0a!2sWetheral%20Parish%20Church!5e1!3m2!1sen!2suk!4v1765299532732!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="embed-wrap">
+              <!-- Replace the src with a real Google Maps embed URL for the venue -->
+              <iframe src="./Brittany &amp; Christopher — Wedding_files/embed.html" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
           </div>
 
           <div class="divider"></div>
@@ -251,7 +287,6 @@ details[open] .chev { transform: rotate(180deg); }
         </div>
 
         <div style="height:18px"></div>
-
       </aside>
     </main>
 
