@@ -141,6 +141,36 @@
       .faq summary{font-size:15px}
       .faq .faq-body{font-size:14px}
     }
+
+    /* container to constrain width and give padding */
+.form-wrapper {
+  max-width: 920px;      /* desktop max width */
+  margin: 0 auto;        /* center on larger screens */
+  padding: 0 1rem;       /* side padding for small screens */
+}
+
+/* make iframe fill the wrapper */
+.form-wrapper iframe {
+  width: 100%;
+  height: 800px;         /* good default for desktop/tablet */
+  border: 0;
+  display: block;
+  min-height: 600px;
+}
+
+/* mobile adjustments: let the form take more vertical space and reduce awkward scaling */
+@media (max-width: 600px) {
+  .form-wrapper {
+    padding: 0 0.75rem;
+  }
+
+  /* increase the iframe height on phones so the form doesn't compress/zoom */
+  .form-wrapper iframe {
+    /* either full viewport height minus header/footer, or at least 1000px if you prefer */
+    height: calc(100vh - 140px); /* tweak 140px to match your header+footer heights */
+    min-height: 700px;
+  }
+}
   </style>
 </head>
 <body>
@@ -150,7 +180,395 @@
         <h1 class="couple">Brittany Warren &amp; Christopher Brown</h1>
         <div class="date">Saturday, August 1, 2026 — Wetheral, UK</div>
         <div class="cta">
-          <svg width="19.682353mm" height="23.780693mm" viewBox="0 0 196.82353 237.80693" version="1.1" id="svg35757" inkscape:version="1.1 (c68e22c387, 2021-05-23)" sodipodi:docname="brown-howell.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+        </div>
+      </div>
+    </header>
+
+    <main class="grid" role="main">
+      <section class="card">
+        <h2>Welcome</h2>
+        <p class="muted">We're so excited to celebrate with you! This site contains all the wedding details — timeline, travel information, accommodations, and RSVP. We appreciate that many of you are travelling internationally to be here with us, so your presence is present enough! We do have a registry set up with Honeyfund accessible <a href="https://www.honeyfund.com/site/warren-brown-08-01-2026">here</a> however.</p>
+
+        <div class="divider"></div>
+
+        <h2>Schedule</h2>
+        <ul class="section-list">
+          <li>
+            <strong>Ceremony — 1:00pm</strong>
+            <div class="small muted">Wetheral Church</div>
+          </li>
+          <li>
+            <strong>Drinks &amp; Photos — 4:00pm</strong>
+            <div class="small muted">The Garden Terrace</div>
+          </li>
+          <li>
+            <strong>Reception — 6:00pm</strong>
+            <div class="small muted">The Grand Hall</div>
+          </li>
+          <li>
+            <strong>After Party — 10:30pm</strong>
+            <div class="small muted">The Courtyard</div>
+          </li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <h2>Travel &amp; Accommodations</h2>
+        <p class="muted">Nearest airport: Newcastle. We have a room block at The Parkside Hotel — mention "Warren-Brown Wedding" when booking. For taxi or rideshares, plan ~45 minutes from central London at peak times.</p>
+
+        <div class="divider"></div>
+
+        <h2>Things to Know</h2>
+        <ul class="section-list">
+          <li>Dress code: Semi-formal / cocktail attire.</li>
+          <li>Parking: Limited — we recommend sharing taxis when possible.</li>
+          <li>Dietary requirements: Please note them when RSVPing below.</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <section class="faq" id="faq">
+          <h2>FAQ</h2>
+<!-- FAQ items — paste these inside your existing <section class="faq" id="faq"> -->
+<details>
+  <summary>
+    <span>Where is the ceremony taking place, and how do I get there?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    The ceremony is taking place at Holy Trinity &amp; St Constantine Church in Wetheral. We recommend driving or carsharing with other guests whenever possible.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Where is the reception taking place, and how do I get there?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    The reception will be held at Wyeknot Farm, Brampton, CA8 1QZ. We recommend driving or carsharing with other guests; please allow extra time for rural roads.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What airports should I fly into?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Nearest major airports (approximate drive times):
+    <ul class="small muted">
+      <li>Newcastle (NCL): ~1–1.5 hours</li>
+      <li>Glasgow (GLA): ~1.75–2 hours</li>
+      <li>Manchester (MAN): ~2–2.5 hours</li>
+      <li>Edinburgh (EDI): ~2–2.5 hours</li>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Is there parking available at the ceremony and reception?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Yes. There is limited street parking near the church, and grass/field parking will be available at the reception. Please follow signage and marshals' instructions on the day.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Will transportation be provided between the ceremony and reception?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Transportation will not be provided. Please plan your own travel between the church and the reception venue.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Is the venue wheelchair accessible?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Yes — both the ceremony and reception locations are wheelchair accessible. If you have specific access requirements, please let us know on your RSVP.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What time should guests arrive?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We’ll share arrival time details once the ceremony schedule is finalised. Please check this page or your invitation for the confirmed times.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What is the dress code?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We are finalising the wedding dress and overall attire guidance. Please check back for the official dress code closer to the date.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What is the dress expectation for the rehearsal dinner (if invited)?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We’ll share more details closer to the date, but expect something between dressy-casual and semi-formal.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Will food and drinks be served?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Yes — food and drinks will be served at the reception. We will post menu details and any special options on this site once they are confirmed.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Will there be vegetarian, vegan, or gluten-free options?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    There will be at least one vegetarian option. If you have other dietary requirements (vegan, gluten-free, allergies, etc.), please note them on your RSVP so we can plan accordingly.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What time does the reception end?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We’ll update the reception end time once the final timeline is set; please check this website for the confirmed schedule.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Will there be a backup plan if it rains?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Yes — we’re arranging a weather backup plan. More details will be added here once arrangements are finalised.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Is the reception outdoors, and should I plan footwear accordingly?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Yes — the reception will take place in the groom’s parents' backyard. We recommend comfortable shoes suitable for grass and uneven ground.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Should I bring anything to prepare for an outdoor reception?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    No special items are required, but you might like a light wrap or jacket for the evening. We’ll provide anything essential on the day.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Are we allowed to take photos during the ceremony?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We kindly ask that no photos be taken during the ceremony because we have a professional photographer. Photos are welcome at the reception, but please wait to share anything on social media until we have posted our official photos.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Do I need a travel adapter for my electronics?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Yes — visitors from abroad will need a U.K. plug adapter (Type G).
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Do I need to bring cash for anything at the wedding?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    You won’t need cash for anything wedding-related — food and drinks will be provided. If you’re travelling from abroad, a small amount of cash can be handy for taxis or incidental purchases, but cards are accepted widely.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What currency should I use, and are credit cards widely accepted?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    The currency in the U.K. is the British Pound (GBP). Credit and debit cards are widely accepted, including at small shops and many taxis. Contactless payment is very common.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Do I need to tip in the U.K., and what is the norm?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Tipping is less customary than in some other countries. Restaurants sometimes add a service charge (around 10–12%); if not, a small tip is appreciated but not expected.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What weather should I expect in England in early August?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Early August is usually mild: roughly 18–24&deg;C (mid-60s to mid-70s &deg;F). Weather can be changeable, so light layers and a compact umbrella are sensible.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Are taxis easily available where the reception is located?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Taxis are available in the area, though pre-booking is recommended for evenings and peak times. (We will add recommended taxi/contact links here when finalised.)
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What is the RSVP deadline, and how do I submit it?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We’ll share the RSVP deadline and submission instructions once invitations go out. You will be able to RSVP directly through this wedding website.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Where is the gift registry located?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We’re currently putting together our registry. Once it’s ready, we’ll add the link to this page and the "Registry" area.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Will there be an after-party or next-day brunch?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    We’re not planning an official after-party or next-day brunch. The only pre-wedding gathering will be a rehearsal dinner for those involved in the ceremony.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Are children invited?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Yes — children are very welcome. If there are any age-specific notes, we will include them on your invitation.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>Can I bring a plus-one?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Plus-ones are only included if they were listed on your invitation. If you’re unsure, please reach out to the contact listed on your invite or email admin@cdjb.co.uk.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <span>What is the best way to contact the wedding couple if I have questions?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Please contact Brittany:
+    <ul class="small muted">
+      <li>WhatsApp: <a href="tel:+14846809229">+1 (484) 680-9229</a></li>
+      <li>Text (UK): <a href="tel:+447512921770">07512 921 770</a></li>
+      <li>Facebook Messenger: search for Brittany Warren</li>
+    </ul>
+  </div>
+</details>
+
+        </section>
+
+        <h2 id="rsvp">RSVP</h2>
+        <p class="small muted">Please RSVP by April 30, 2025.</p>
+
+        <div class="form-wrapper">
+  <iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLScOjA72rvvxeIcnIC1ipVU1idhylzSq0mILu3UqtorVAc5XMg/viewform?embedded=true"
+    frameborder="0"
+    marginheight="0"
+    marginwidth="0"
+    loading="lazy"
+    aria-label="Sign up form">
+    Loading…
+  </iframe>
+</div>
+
+      </section>
+
+      <aside class="side">
+        <div class="card">
+          <h2>Venue</h2>
+          <p class="muted">Wetheral Parish Church<br>Cumberland, UK</p>
+          <div class="map" aria-hidden="true">
+            <div class="embed-wrap">
+              <!-- Replace the src with a real Google Maps embed URL for the venue -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d45553.04342882101!2d-2.8409856335877235!3d54.896216462546164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487d1b2ad8c7e1d7%3A0x213ea36c875eee0a!2sWetheral%20Parish%20Church!5e1!3m2!1sen!2suk!4v1765299532732!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h2>Registry</h2>
+          <p class="muted">If you'd like to contribute to our honeymoon fund or registry items, please visit our Honeyfund page.</p>
+          <a class="btn" href="https://www.honeyfund.com/site/warren-brown-08-01-2026" target="_blank" rel="noopener" id="honeyfund-link-2">Honeyfund Registry</a>
+
+          <div class="divider"></div>
+
+          <h2>Contact</h2>
+          <p class="muted small">Questions? Email <a href="mailto:brittanywarren13@gmail.com">brittanywarren13@gmail.com</a></p>
+        </div>
+
+        <div style="height:18px"></div>
+      </aside>
+    </main>
+
+    <footer>
+                <svg width="19.682353mm" height="23.780693mm" viewBox="0 0 196.82353 237.80693" version="1.1" id="svg35757" inkscape:version="1.1 (c68e22c387, 2021-05-23)" sodipodi:docname="brown-howell.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview id="namedview35759" pagecolor="#505050" bordercolor="#eeeeee" borderopacity="1" inkscape:pageshadow="0" inkscape:pageopacity="0" inkscape:pagecheckerboard="0" inkscape:document-units="mm" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="0.26205012" inkscape:cx="242.32005" inkscape:cy="902.4991" inkscape:window-width="1920" inkscape:window-height="1017" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="layer1"></sodipodi:namedview>
   <defs id="defs35754"></defs>
   <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(-25.100247,24.663083)">
@@ -883,384 +1301,6 @@
     </g>
   </g>
 </svg>
-        </div>
-      </div>
-    </header>
-
-    <main class="grid" role="main">
-      <section class="card">
-        <h2>Welcome</h2>
-        <p class="muted">We're so excited to celebrate with you! This site contains all the wedding details — timeline, travel information, accommodations, and RSVP. We appreciate that many of you are travelling internationally to be here with us, so your presence is present enough! We do have a registry set up with Honeyfund accessible <a href="https://www.honeyfund.com/site/warren-brown-08-01-2026">here</a> however.</p>
-
-        <div class="divider"></div>
-
-        <h2>Schedule</h2>
-        <ul class="section-list">
-          <li>
-            <strong>Ceremony — 1:00pm</strong>
-            <div class="small muted">Wetheral Church</div>
-          </li>
-          <li>
-            <strong>Drinks &amp; Photos — 4:00pm</strong>
-            <div class="small muted">The Garden Terrace</div>
-          </li>
-          <li>
-            <strong>Reception — 6:00pm</strong>
-            <div class="small muted">The Grand Hall</div>
-          </li>
-          <li>
-            <strong>After Party — 10:30pm</strong>
-            <div class="small muted">The Courtyard</div>
-          </li>
-        </ul>
-
-        <div class="divider"></div>
-
-        <h2>Travel &amp; Accommodations</h2>
-        <p class="muted">Nearest airport: Newcastle. We have a room block at The Parkside Hotel — mention "Warren-Brown Wedding" when booking. For taxi or rideshares, plan ~45 minutes from central London at peak times.</p>
-
-        <div class="divider"></div>
-
-        <h2>Things to Know</h2>
-        <ul class="section-list">
-          <li>Dress code: Semi-formal / cocktail attire.</li>
-          <li>Parking: Limited — we recommend sharing taxis when possible.</li>
-          <li>Dietary requirements: Please note them when RSVPing below.</li>
-        </ul>
-
-        <div class="divider"></div>
-
-        <section class="faq" id="faq">
-          <h2>FAQ</h2>
-<!-- FAQ items — paste these inside your existing <section class="faq" id="faq"> -->
-<details>
-  <summary>
-    <span>Where is the ceremony taking place, and how do I get there?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    The ceremony is taking place at Holy Trinity &amp; St Constantine Church in Wetheral. We recommend driving or carsharing with other guests whenever possible.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Where is the reception taking place, and how do I get there?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    The reception will be held at Wyeknot Farm, Brampton, CA8 1QZ. We recommend driving or carsharing with other guests; please allow extra time for rural roads.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What airports should I fly into?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Nearest major airports (approximate drive times):
-    <ul class="small muted">
-      <li>Newcastle (NCL): ~1–1.5 hours</li>
-      <li>Glasgow (GLA): ~1.75–2 hours</li>
-      <li>Manchester (MAN): ~2–2.5 hours</li>
-      <li>Edinburgh (EDI): ~2–2.5 hours</li>
-    </ul>
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Is there parking available at the ceremony and reception?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Yes. There is limited street parking near the church, and grass/field parking will be available at the reception. Please follow signage and marshals' instructions on the day.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Will transportation be provided between the ceremony and reception?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Transportation will not be provided. Please plan your own travel between the church and the reception venue.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Is the venue wheelchair accessible?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Yes — both the ceremony and reception locations are wheelchair accessible. If you have specific access requirements, please let us know on your RSVP.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What time should guests arrive?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We’ll share arrival time details once the ceremony schedule is finalised. Please check this page or your invitation for the confirmed times.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What is the dress code?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We are finalising the wedding dress and overall attire guidance. Please check back for the official dress code closer to the date.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What is the dress expectation for the rehearsal dinner (if invited)?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We’ll share more details closer to the date, but expect something between dressy-casual and semi-formal.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Will food and drinks be served?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Yes — food and drinks will be served at the reception. We will post menu details and any special options on this site once they are confirmed.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Will there be vegetarian, vegan, or gluten-free options?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    There will be at least one vegetarian option. If you have other dietary requirements (vegan, gluten-free, allergies, etc.), please note them on your RSVP so we can plan accordingly.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What time does the reception end?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We’ll update the reception end time once the final timeline is set; please check this website for the confirmed schedule.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Will there be a backup plan if it rains?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Yes — we’re arranging a weather backup plan. More details will be added here once arrangements are finalised.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Is the reception outdoors, and should I plan footwear accordingly?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Yes — the reception will take place in the groom’s parents' backyard. We recommend comfortable shoes suitable for grass and uneven ground.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Should I bring anything to prepare for an outdoor reception?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    No special items are required, but you might like a light wrap or jacket for the evening. We’ll provide anything essential on the day.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Are we allowed to take photos during the ceremony?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We kindly ask that no photos be taken during the ceremony because we have a professional photographer. Photos are welcome at the reception, but please wait to share anything on social media until we have posted our official photos.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Do I need a travel adapter for my electronics?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Yes — visitors from abroad will need a U.K. plug adapter (Type G).
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Do I need to bring cash for anything at the wedding?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    You won’t need cash for anything wedding-related — food and drinks will be provided. If you’re travelling from abroad, a small amount of cash can be handy for taxis or incidental purchases, but cards are accepted widely.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What currency should I use, and are credit cards widely accepted?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    The currency in the U.K. is the British Pound (GBP). Credit and debit cards are widely accepted, including at small shops and many taxis. Contactless payment is very common.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Do I need to tip in the U.K., and what is the norm?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Tipping is less customary than in some other countries. Restaurants sometimes add a service charge (around 10–12%); if not, a small tip is appreciated but not expected.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What weather should I expect in England in early August?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Early August is usually mild: roughly 18–24&deg;C (mid-60s to mid-70s &deg;F). Weather can be changeable, so light layers and a compact umbrella are sensible.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Are taxis easily available where the reception is located?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Taxis are available in the area, though pre-booking is recommended for evenings and peak times. (We will add recommended taxi/contact links here when finalised.)
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What is the RSVP deadline, and how do I submit it?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We’ll share the RSVP deadline and submission instructions once invitations go out. You will be able to RSVP directly through this wedding website.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Where is the gift registry located?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We’re currently putting together our registry. Once it’s ready, we’ll add the link to this page and the "Registry" area.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Will there be an after-party or next-day brunch?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    We’re not planning an official after-party or next-day brunch. The only pre-wedding gathering will be a rehearsal dinner for those involved in the ceremony.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Are children invited?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Yes — children are very welcome. If there are any age-specific notes, we will include them on your invitation.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>Can I bring a plus-one?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Plus-ones are only included if they were listed on your invitation. If you’re unsure, please reach out to the contact listed on your invite or email admin@cdjb.co.uk.
-  </div>
-</details>
-
-<details>
-  <summary>
-    <span>What is the best way to contact the wedding couple if I have questions?</span>
-    <span class="chev" aria-hidden="true">▾</span>
-  </summary>
-  <div class="faq-body">
-    Please contact Brittany:
-    <ul class="small muted">
-      <li>WhatsApp: <a href="tel:+14846809229">+1 (484) 680-9229</a></li>
-      <li>Text (UK): <a href="tel:+447512921770">07512 921 770</a></li>
-      <li>Facebook Messenger: search for Brittany Warren</li>
-    </ul>
-  </div>
-</details>
-
-        </section>
-
-        <h2 id="rsvp">RSVP</h2>
-        <p class="small muted">Please RSVP by April 30, 2025.</p>
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScOjA72rvvxeIcnIC1ipVU1idhylzSq0mILu3UqtorVAc5XMg/viewform?embedded=true" width="640" height="1312" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-
-      </section>
-
-      <aside class="side">
-        <div class="card">
-          <h2>Venue</h2>
-          <p class="muted">Wetheral Parish Church<br>Cumberland, UK</p>
-          <div class="map" aria-hidden="true">
-            <div class="embed-wrap">
-              <!-- Replace the src with a real Google Maps embed URL for the venue -->
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d45553.04342882101!2d-2.8409856335877235!3d54.896216462546164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487d1b2ad8c7e1d7%3A0x213ea36c875eee0a!2sWetheral%20Parish%20Church!5e1!3m2!1sen!2suk!4v1765299532732!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>
-
-          <div class="divider"></div>
-
-          <h2>Registry</h2>
-          <p class="muted">If you'd like to contribute to our honeymoon fund or registry items, please visit our Honeyfund page.</p>
-          <a class="btn" href="https://www.honeyfund.com/site/warren-brown-08-01-2026" target="_blank" rel="noopener" id="honeyfund-link-2">Honeyfund Registry</a>
-
-          <div class="divider"></div>
-
-          <h2>Contact</h2>
-          <p class="muted small">Questions? Email <a href="mailto:brittanywarren13@gmail.com">brittanywarren13@gmail.com</a></p>
-        </div>
-
-        <div style="height:18px"></div>
-      </aside>
-    </main>
-
-    <footer>
-      Made with ♥ 
     </footer>
   </div>
 
