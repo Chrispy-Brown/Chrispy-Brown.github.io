@@ -264,14 +264,14 @@ text {
                         <animate attributeType="CSS" attributeName="opacity" from="0.0" to="1.0" dur="0.1s" begin="3s"
                            fill="freeze" />
                      </line>
-                     <g class="location" data-id="Maddalena">
+                     <g class="location" data-id="LaMaddalena">
                         <circle id="Maddalena" fill="green" cx="0" cy="0" r="0" transform="translate(175,-455)">
                            <animate attributeName="r" values="0.0;8.22;5.16;6.36;5.82;6.06;6.0"
                               keyTimes="0;0.14;0.28;0.44;0.58;0.73;1.0" dur="1.5s" begin="4s" additive="sum"
                               fill="freeze" />
                         </circle>
 
-                        <text x="185" y="-445" class="mini">La Maddalena Island
+                        <text x="185" y="-445" class="mini">La Maddalena
                            <animate attributeName="font-size" values="0.0;35;22;26.5;24.25;25.25;25"
                               keyTimes="0;0.14;0.28;0.44;0.58;0.73;1.0" dur="1.5s" begin="4s" additive="sum"
                               fill="freeze" />
@@ -285,7 +285,7 @@ text {
                         <animate attributeType="CSS" attributeName="opacity" from="0.0" to="1.0" dur="0.1s" begin="4s"
                            fill="freeze" />
                      </line>
-                     <g class="location" data-id="Gallura">
+                     <g class="location" data-id="SantaTeresa">
                         <circle id="Gallura" fill="green" cx="0" cy="0" r="0" transform="translate(95,-455)">
                            <animate attributeName="r" values="0.0;8.22;5.16;6.36;5.82;6.06;6.0"
                               keyTimes="0;0.14;0.28;0.44;0.58;0.73;1.0" dur="1.5s" begin="5s" additive="sum"
@@ -364,7 +364,7 @@ text {
                         <animate attributeType="CSS" attributeName="opacity" from="0.0" to="1.0" dur="0.1s" begin="8s"
                            fill="freeze" />
                      </line>
-                     <g class="location" data-id="Cala">
+                     <g class="location" data-id="Dorgali">
                         <circle id="Cala" fill="green" cx="0" cy="0" r="0" transform="translate(250,-10)">
                            <animate attributeName="r" values="0.0;8.22;5.16;6.36;5.82;6.06;6.0"
                               keyTimes="0;0.14;0.28;0.44;0.58;0.73;1.0" dur="1.5s" begin="9s" additive="sum"
@@ -383,7 +383,7 @@ text {
                         <animate attributeType="CSS" attributeName="opacity" from="0.0" to="1.0" dur="0.1s" begin="9s"
                            fill="freeze" />
                      </line>
-                     <g class="location" data-id="Teodoro">
+                     <g class="location" data-id="SanTeodoro">
                         <circle id="Teodoro" fill="green" cx="0" cy="0" r="0" transform="translate(265,-240)">
                            <animate attributeName="r" values="0.0;8.22;5.16;6.36;5.82;6.06;6.0"
                               keyTimes="0;0.14;0.28;0.44;0.58;0.73;1.0" dur="1.5s" begin="10s" additive="sum"
@@ -1151,30 +1151,184 @@ text {
       </div>
 
       <aside class="right" id="right">
-         <div class="panel">
-            <h2>Our Honeymoon</h2>
-            <p>Click a location to view the itinerary for that day!</p>
-         </div>
+         <div id="detailsPanel" class="panel details-pane" tabindex="-1" aria-live="polite" aria-labelledby="detailsTitle">
+            <h2 id="detailsTitle" class="details-title">Select a location</h2>
+            <div id="detailsBody" class="details-body">
+              <p>Click a location on the map to see details.</p>
+            </div>
+          </div>
       </aside>
    </div>
 
+<style>
+   .details-pane {
+  position: relative;
+  padding: 1rem;
+  max-width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  transition: transform .18s ease, opacity .18s ease;
+  transform-origin: top right;
+}
+.details-pane.hidden {
+  opacity: 0;
+  transform: scale(.99);
+}
+.details-title { margin-top: 0; }
+.details-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.details-body p { margin: .5rem 0 1rem; line-height: 1.45; }
+
+</style>
+
    <script>
-      document.querySelectorAll('.location').forEach(el => {
-      el.addEventListener('click', (e) => {
-         const id = el.dataset.id;
-         handleLocationClick(id);
-      });
-      });
+// 1. Location content map
+const LOCATION_DETAILS = {
+  Olbia: `
+    <h2>Olbia</h2>
+    <p>
+      Olbia is our entry and exit point for the trip, a port city with a charming historic
+      center and ancient churches like the Basilica di San Simplicio. We’ll stroll the
+      Corso Umberto, explore local boutiques, and enjoy dinners in its classic trattorias.
+    </p>
+    <p>
+      It’s also our base for exploring the Costa Smeralda’s beaches and viewpoints.
+      We’ll end our trip here with a final celebratory meal.
+    </p>
+  `,
 
-      function handleLocationClick(id) {
-      console.log('Clicked:', id);
+  Palau: `
+    <h2>Palau</h2>
+    <p>
+      Palau is our first home base — a welcoming coastal town with a beautiful harbor
+      and evening markets. We’ll visit Punta d’Orso (the famous Bear Rock), explore
+      ancient sites like the Giants’ Tomb, and hike to quiet beaches such as Cala di Trana.
+    </p>
+    <p>
+      It’s also where we’ll catch the ferry to La Maddalena with our car.
+    </p>
+  `,
 
-      // Example: update right-hand panel
-      document.querySelector('.right .panel').innerHTML = `
-         <h2>${id}</h2>
-         <p>Details about ${id} go here.</p>
-      `;
-      }
+  LaMaddalena: `
+    <h2>La Maddalena Islands</h2>
+    <p>
+      We’ll take the ferry to explore La Maddalena, driving the island’s scenic ring road
+      and relaxing at beaches like Bassa Trinita and Punta Tegge.
+    </p>
+    <p>
+      The pastel-colored old town is perfect for a slow lunch. On Caprera, we’ll hike
+      to secluded coves such as Cala Caprarese for swimming in turquoise water.
+      It’s one of the most beautiful parts of the entire trip.
+    </p>
+  `,
+
+  SantaTeresa: `
+    <h2>Santa Teresa di Gallura</h2>
+    <p>
+      Santa Teresa is where granite cliffs, wind-sculpted rocks, and crystal water all
+      come together. We’ll wander the landscape of Capo Testa, explore Valle della Luna,
+      and relax at the stunning Rena Bianca beach.
+    </p>
+    <p>
+      The little town itself is warm and vibrant, with great trattorias and seaside
+      aperitivo spots.
+    </p>
+  `,
+
+  Castelsardo: `
+    <h2>Castelsardo</h2>
+    <p>
+      Perched on a cliff above the sea, Castelsardo is one of Sardinia’s most atmospheric
+      medieval towns. We’ll explore its winding streets, visit the Doria Castle, and
+      admire sweeping views from the ancient walls.
+    </p>
+    <p>
+      The cathedral and artisan shops give a glimpse into Sardinia’s artistic traditions.
+      It’s also a great place to enjoy a long, slow, traditional dinner.
+    </p>
+  `,
+
+  Bosa: `
+    <h2>Bosa</h2>
+    <p>
+      Bosa is a postcard-perfect riverside town filled with pastel houses, cobblestone
+      lanes, and a peaceful waterfront. We’ll climb to Malaspina Castle for spectacular
+      views and explore the historic tannery district.
+    </p>
+    <p>
+      The town is known for its sweet Malvasia wine, which we’ll try during lunch
+      along the river.
+    </p>
+  `,
+
+  Nuoro: `
+    <h2>Nuoro</h2>
+    <p>
+      Nuoro is the cultural heart of Sardinia’s interior, set among rugged mountains
+      and known for its deep artistic and literary heritage.
+    </p>
+    <p>
+      We’ll explore the island’s traditional history, then take a scenic drive to
+      Orgosolo to see its striking murals that tell the story of Sardinia’s past.
+      A day centered on culture, food, and the island’s soul away from the coast.
+    </p>
+  `,
+
+  Dorgali: `
+    <h2>Dorgali & Cala Gonone</h2>
+    <p>
+      Here the mountains drop straight into the Mediterranean, creating some of
+      Sardinia’s most dramatic scenery. We’ll explore archaeological sites like Tiscali,
+      hike around Gorroppu Gorge, and spend time in the relaxed seaside town of Cala Gonone.
+    </p>
+    <p>
+      From here we can visit the Gulf of Orosei’s iconic coves by boat or trail.
+    </p>
+  `,
+
+  SanTeodoro: `
+    <h2>San Teodoro</h2>
+    <p>
+      San Teodoro is a vibrant beach town with some of the clearest, shallowest turquoise
+      waters on the island. We’ll stop at La Cinta, famous for its long white-sand stretch
+      and lagoon views.
+    </p>
+    <p>
+      It’s the ideal spot to unwind during our drive back north.
+    </p>
+  `
+};
+
+// 2. Attach click handlers (same structure you already had)
+document.querySelectorAll('.location').forEach(el => {
+  el.addEventListener('click', () => {
+    const id = el.dataset.id;
+    handleLocationClick(id);
+  });
+});
+
+// 3. Update right-hand panel
+function handleLocationClick(id) {
+  console.log('Clicked:', id);
+
+  const panel = document.getElementById('detailsPanel');
+
+  if (!panel) return;
+
+  panel.innerHTML = LOCATION_DETAILS[id] || `
+    <h2>${id}</h2>
+    <p>No details available.</p>
+  `;
+}
+
 
    </script>
 
@@ -1308,6 +1462,5 @@ text {
    </script>
    
 </body>
-
 
 </html>
