@@ -216,7 +216,7 @@ text {
                xmlns:svg="http://www.w3.org/2000/svg">
                <defs id="defs2" />
                <g id="viewport">
-               <g inkscape:label="Layer 1" inkscape:groupmode="layer" transform="translate(-50,-50)">
+               <g transform="translate(-50,-50)">
                   <g id="g13354">
                      <g transform="matrix(10.583333,0,0,10.583333,-1874.5421,-3660.3878)" id="Olbia-Tempio"
                         class="county"
@@ -1675,25 +1675,34 @@ function handleLocationClick(id) {
         }, { passive: false });
       
         // pointerdown for pan & pointer tracking
-        svg.addEventListener('pointerdown', function (ev) {
-          svg.setPointerCapture(ev.pointerId);
-          pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
-      
-          if (pointers.size === 1) {
-            // start single-finger pan
-            isPanning = true;
-            panStart = { x: ev.clientX, y: ev.clientY, tx, ty };
-          } else if (pointers.size === 2) {
-            // start pinch
-            const pts = Array.from(pointers.values());
-            // initial distance
-            const dx = pts[1].x - pts[0].x;
-            const dy = pts[1].y - pts[0].y;
-            const dist = Math.hypot(dx, dy);
-            const mid = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
-            pinchStart = { distance: dist, scaleOnStart: scale, midClient: mid, txOnStart: tx, tyOnStart: ty };
-          }
-        }, { passive: false });
+// pointerdown for pan & pointer tracking
+svg.addEventListener('pointerdown', function (ev) {
+  // If pointer started on an interactive element, don't start panning here.
+  // This allows SVG children (e.g. .location groups) to receive clicks.
+  if (ev.target.closest && ev.target.closest('.location, a, button, input, .no-pan')) {
+    // do nothing here: let the element handle the pointer/click
+    return;
+  }
+
+  // otherwise start panning/pointer capture
+  svg.setPointerCapture(ev.pointerId);
+  pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+
+  if (pointers.size === 1) {
+    // start single-finger pan
+    isPanning = true;
+    panStart = { x: ev.clientX, y: ev.clientY, tx, ty };
+  } else if (pointers.size === 2) {
+    // start pinch
+    const pts = Array.from(pointers.values());
+    const dx = pts[1].x - pts[0].x;
+    const dy = pts[1].y - pts[0].y;
+    const dist = Math.hypot(dx, dy);
+    const mid = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+    pinchStart = { distance: dist, scaleOnStart: scale, midClient: mid, txOnStart: tx, tyOnStart: ty };
+  }
+}, { passive: false });
+
       
         svg.addEventListener('pointermove', function (ev) {
           if (!pointers.has(ev.pointerId)) return;
