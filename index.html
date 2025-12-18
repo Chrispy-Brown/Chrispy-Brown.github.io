@@ -171,6 +171,23 @@
     min-height: 700px;
   }
 }
+
+    .info-trigger {
+  color: #2a6ebb;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.info-box {
+  display: none;
+  max-width: 400px;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
   </style>
 </head>
 <body>
@@ -198,18 +215,32 @@
             <div class="small muted">Wetheral Church</div>
           </li>
           <li>
-            <strong>Drinks &amp; Photos — 4:00pm</strong>
-            <div class="small muted">The Garden Terrace</div>
+            <strong>Canapés &amp; Welcome drinks — 3:00pm</strong>
+            <div class="small muted">Wyeknot Farm</div>
           </li>
           <li>
-            <strong>Reception — 6:00pm</strong>
-            <div class="small muted">The Grand Hall</div>
+            <strong>Toasts &amp; Speeches — 4:00pm</strong>
           </li>
           <li>
-            <strong>After Party — 10:30pm</strong>
-            <div class="small muted">The Courtyard</div>
+            <strong>Dinner — 4:30pm</strong>
+          </li>
+          <li>
+            <strong>Ceilidh — TBC</strong>
+            <div class="small muted"><span class="info-trigger" onclick="toggleInfo()"What is a Ceilidh?</span></div>
+          </li>
+          <li>
+            <strong>Music &amp; Dancing — Evening &amp; beyond! </strong>
           </li>
         </ul>
+        <script>
+          function toggleInfo() {
+            const box = document.getElementById("info-box");
+            box.style.display = box.style.display === "block" ? "none" : "block";
+          }
+        </script>
+        <div id="info-box" class="info-box">
+          A ceilidh (pronounced “KAY-lee”) is a lively Scottish group dance, perfect for celebrations. Guests dance together to live folk music, with a caller guiding every step—no experience needed. It’s joyful, inclusive, and a fun way for everyone to celebrate together.
+        </div>
 
         <div class="divider"></div>
 
