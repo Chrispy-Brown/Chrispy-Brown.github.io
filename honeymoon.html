@@ -209,13 +209,14 @@ text {
          <div class="svg-wrap" id="svgWrap" aria-hidden="false">
             <!-- Example inline SVG (replace with your SVG) -->
             <svg overflow="hidden" viewBox="-450 -350 900 900" preserveAspectRatio="xMinYMid meet"
-               style="width:100%; height:100%; overflow:hidden; display:block;" version="1.1" id="svg5"
+               style="width:100%; height:100%; overflow:hidden; display:block; touch-action: none; user-select: none;" version="1.1" id="svg5"
                inkscape:version="1.1 (c68e22c387, 2021-05-23)" sodipodi:docname="sardinia.svg"
                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg"
                xmlns:svg="http://www.w3.org/2000/svg">
                <defs id="defs2" />
-               <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(-50,-50)">
+               <g id="viewport">
+               <g inkscape:label="Layer 1" inkscape:groupmode="layer" transform="translate(-50,-50)">
                   <g id="g13354">
                      <g transform="matrix(10.583333,0,0,10.583333,-1874.5421,-3660.3878)" id="Olbia-Tempio"
                         class="county"
@@ -1142,6 +1143,7 @@ text {
                </line>
 
                </g>
+               </g>
             </svg>
          </div>
       </section>
@@ -1547,7 +1549,251 @@ function handleLocationClick(id) {
 })();
 
    </script>
-   
+
+   <script>
+      (function () {
+        const svg = document.getElementById('svg5');
+        if (!svg) return;
+        const viewport = svg.querySelector('#viewport');
+      
+        // state
+        let scale = 1;
+        let tx = 0;
+        let ty = 0;
+        const minScale = 0.2;
+        const maxScale = 10;
+        const zoomFactor = 1.12; // wheel zoom multiplier per wheel tick
+        let isPanning = false;
+        let panStart = null;
+      
+        // pointer/pinch state
+        const pointers = new Map(); // pointerId -> {x,y}
+        let pinchStart = null; // {distance, scale, mid}
+      
+        // helpers: convert client coords -> SVG local coords (point in SVG user-space)
+        function clientPointToSvgPoint(clientX, clientY) {
+          const pt = svg.createSVGPoint();
+          pt.x = clientX;
+          pt.y = clientY;
+          // transform through current CTM of the viewport group
+          const ctm = viewport.getCTM(); // current transform of viewport in screen coords
+          if (!ctm) return pt; // fallback
+          const inverse = ctm.inverse();
+          return pt.matrixTransform(inverse);
+        }
+      
+        // apply the computed transform to viewport
+        function updateTransform() {
+          viewport.setAttribute('transform', `translate(${tx},${ty}) scale(${scale})`);
+        }
+      
+        // clamp scale
+        function clampScale(s) {
+          return Math.max(minScale, Math.min(maxScale, s));
+        }
+      
+        // zoom at client (x,y) by factor f (f >1 zoom in, <1 zoom out)
+        function zoomAtClientPoint(f, clientX, clientY) {
+          // SVG coordinate under cursor before zoom
+          const before = clientPointToSvgPoint(clientX, clientY);
+      
+          // update scale
+          const newScale = clampScale(scale * f);
+      
+          // compute SVG coordinate under cursor after applying newScale but before changing translate
+          // We want to choose tx/ty so that 'before' remains under the same client point.
+          // formula: new_tx = clientToSvg.x - (clientX in svg user units * newScale)
+          // simpler approach: compute world coords difference and adjust tx/ty
+          scale = newScale;
+      
+          // After scale change, compute where the 'before' point maps to in client; solve for tx/ty
+          // Use SVG matrices: but easier is to compute: newTx = clientX - (before.x * scale)
+          // However we need to convert to the same coordinate system. The viewport transform is translate+scale:
+          // screen pos = (before.x * scale + tx) * ??? Actually update uses viewport transform applied to user coords.
+          // We'll compute the required tx/ty so that: screenPoint(before) == client point.
+          // To do this we convert 'before' to screen using svg.getScreenCTM after setting transform; simpler method:
+          // Use math: after transform, screen = (before.x * scale + tx) in svg coordinate units mapped to screen via CTM of svg.
+          // But the straightforward practical approach below:
+          // Compute new tx/ty such that the transformed point maps to same client position:
+          const svgPointAfter = { x: before.x * scale, y: before.y * scale };
+      
+          // We need to compute translation so that when svgPointAfter is converted to client coords, equals clientX,clientY.
+          // The viewport transform to client is: screen = svg.getScreenCTM() * (svgPoint * 1) but svg.getScreenCTM includes current transforms.
+          // Simpler: compute current screen position of the point with the current transform (old), then adjust tx,ty to maintain position.
+          // Get current screen pos of 'before' using current CTM:
+          const pt = svg.createSVGPoint();
+          pt.x = before.x;
+          pt.y = before.y;
+          const curCTM = viewport.getCTM(); // before change
+          const curScreen = pt.matrixTransform(curCTM);
+      
+          // Now compute what the new CTM would be if we changed scale and tx/ty to something unknown.
+          // We can compute delta in screen space by scaling around the point: when scaling by f about that screen point,
+          // newTx_screen = curTx_screen - (f-1)*(screen_x - curTx_screen). For our simple translate+scale model we can solve by:
+          // We will update tx/ty in SVG user units using: tx = curTx + (1 - f) * before.x
+          // This keeps the point fixed.
+          // So:
+          // tx' = tx + (1 - f) * before.x
+          // ty' = ty + (1 - f) * before.y
+          // However since we already updated scale to 'scale', we need to use factor = newScale/oldScale
+          const factor = scale / (scale / f); // equals f, simpler: factor = f
+          tx = tx + (1 - f) * before.x;
+          ty = ty + (1 - f) * before.y;
+      
+          updateTransform();
+        }
+      
+        // Better (simpler) zoomAt client implementation using math derived above:
+        function zoomAt(clientX, clientY, deltaScale) {
+          // user-space point under cursor before zoom:
+          const before = clientPointToSvgPoint(clientX, clientY);
+          const oldScale = scale;
+          const newScale = clampScale(scale * deltaScale);
+          const factor = newScale / oldScale;
+      
+          // Adjust translate so that 'before' stays fixed in client coords
+          // New tx = factor * tx + (1 - factor) * before.x
+          // But our transforms are: screen = (user * scale) + translate, so solving gives:
+          tx = factor * tx + (1 - factor) * before.x;
+          ty = factor * ty + (1 - factor) * before.y;
+      
+          scale = newScale;
+          updateTransform();
+        }
+      
+        // wheel handler
+        svg.addEventListener('wheel', function (ev) {
+          // allow zoom with wheel; prevent page scroll while zooming over svg
+          ev.preventDefault();
+      
+          // choose zoom amount; use deltaY sign
+          const delta = ev.deltaY;
+          const zoomDir = delta > 0 ? 1 / zoomFactor : zoomFactor;
+          // If you want CtrlKey-only zoom, uncomment the next lines:
+          // if (!ev.ctrlKey) return; // require Ctrl for zoom
+          zoomAt(ev.clientX, ev.clientY, zoomDir);
+        }, { passive: false });
+      
+        // pointerdown for pan & pointer tracking
+        svg.addEventListener('pointerdown', function (ev) {
+          svg.setPointerCapture(ev.pointerId);
+          pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+      
+          if (pointers.size === 1) {
+            // start single-finger pan
+            isPanning = true;
+            panStart = { x: ev.clientX, y: ev.clientY, tx, ty };
+          } else if (pointers.size === 2) {
+            // start pinch
+            const pts = Array.from(pointers.values());
+            // initial distance
+            const dx = pts[1].x - pts[0].x;
+            const dy = pts[1].y - pts[0].y;
+            const dist = Math.hypot(dx, dy);
+            const mid = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+            pinchStart = { distance: dist, scaleOnStart: scale, midClient: mid, txOnStart: tx, tyOnStart: ty };
+          }
+        }, { passive: false });
+      
+        svg.addEventListener('pointermove', function (ev) {
+          if (!pointers.has(ev.pointerId)) return;
+          // update pointer position
+          pointers.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+      
+          if (pointers.size === 1 && isPanning) {
+            // pan
+            const cur = pointers.values().next().value;
+            const dx = cur.x - panStart.x;
+            const dy = cur.y - panStart.y;
+      
+            // Convert movement in client px to SVG user units:
+            // We'll compute movement in SVG coords by mapping two points.
+            const startSvg = clientPointToSvgPoint(panStart.x, panStart.y);
+            const curSvg = clientPointToSvgPoint(cur.x, cur.y);
+            const moveX = curSvg.x - startSvg.x;
+            const moveY = curSvg.y - startSvg.y;
+      
+            tx = panStart.tx + moveX;
+            ty = panStart.ty + moveY;
+            updateTransform();
+          } else if (pointers.size === 2 && pinchStart) {
+            // pinch->zoom
+            const pts = Array.from(pointers.values());
+            const dx = pts[1].x - pts[0].x;
+            const dy = pts[1].y - pts[0].y;
+            const dist = Math.hypot(dx, dy);
+            if (pinchStart.distance === 0) return;
+            const factor = dist / pinchStart.distance;
+            const desiredScale = clampScale(pinchStart.scaleOnStart * factor);
+      
+            // midpoint in client coords
+            const midClient = { x: (pts[0].x + pts[1].x) / 2, y: (pts[0].y + pts[1].y) / 2 };
+      
+            // convert midClient to svg user coords using current transform before change
+            const midSvgBefore = clientPointToSvgPoint(midClient.x, midClient.y);
+      
+            // update scale
+            const oldScale = scale;
+            scale = desiredScale;
+      
+            // To keep midpoint stable: adjust tx/ty
+            const factorScale = scale / oldScale;
+            tx = factorScale * pinchStart.txOnStart + (1 - factorScale) * midSvgBefore.x;
+            ty = factorScale * pinchStart.tyOnStart + (1 - factorScale) * midSvgBefore.y;
+      
+            updateTransform();
+          }
+        }, { passive: false });
+      
+        svg.addEventListener('pointerup', function (ev) {
+          pointers.delete(ev.pointerId);
+          svg.releasePointerCapture?.(ev.pointerId);
+          if (pointers.size === 0) {
+            isPanning = false;
+            panStart = null;
+            pinchStart = null;
+          } else if (pointers.size === 1) {
+            // if one pointer remains, start pan from current location
+            const last = pointers.values().next().value;
+            panStart = { x: last.x, y: last.y, tx, ty };
+            isPanning = true;
+            pinchStart = null;
+          }
+        });
+      
+        svg.addEventListener('pointercancel', function (ev) {
+          pointers.delete(ev.pointerId);
+          svg.releasePointerCapture?.(ev.pointerId);
+          isPanning = false;
+          panStart = null;
+          pinchStart = null;
+        });
+      
+        // double click / double tap to reset transform
+        svg.addEventListener('dblclick', function (ev) {
+          scale = 1;
+          tx = 0;
+          ty = 0;
+          updateTransform();
+        });
+      
+        // initial transform set
+        updateTransform();
+      
+        // expose API if you want
+        window.svgPanZoom = {
+          zoomIn() { zoomAt(svg.clientWidth/2, svg.clientHeight/2, zoomFactor); },
+          zoomOut() { zoomAt(svg.clientWidth/2, svg.clientHeight/2, 1/zoomFactor); },
+          reset() { scale = 1; tx = 0; ty = 0; updateTransform(); },
+          setScale(s) { scale = clampScale(s); updateTransform(); }
+        };
+      })();
+      </script>
+
+      <script>
+         
+      </script>
+      
 </body>
 
 </html>
