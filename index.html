@@ -57,6 +57,38 @@
     .section-list{list-style:none;padding:0;margin:0}
     .section-list li{padding:12px 0;border-top:1px dashed #eee}
     .section-list li:first-child{border-top:0}
+    .section-list li.section-divider {
+  border-top: none;
+  padding: 24px 0 16px;
+}
+
+    .section-divider {
+  text-align: center;
+  margin: 2rem 0 1.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #777;
+  position: relative;
+}
+
+.section-divider span {
+  background: #fff;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e0e0e0;
+}
+
 
     .map{height:200px;border-radius:8px;overflow:hidden}
 
@@ -215,7 +247,7 @@
             <div class="small muted"><a href="https://maps.app.goo.gl/A6CyykSvGLjzPFCc9">Wetheral Parish Church</a></div>
           </li>
           <li>
-            <strong>Canapés &amp; Welcome Drinks — 3:00pm</strong>
+            <strong>Canapés &amp; Welcome Drinks — 2:30pm</strong>
             <div class="small muted"><a href="https://maps.app.goo.gl/z6eigNrg1oZuoRHg9">Wyeknot Farm</a></div>
           </li>
           <li>
@@ -223,6 +255,9 @@
           </li>
           <li>
             <strong>Dinner — 4:30pm</strong>
+          </li>
+         <li class="section-divider">
+          <span>Evening Events</span>
           </li>
           <li>
             <strong>Ceilidh — TBC</strong>
