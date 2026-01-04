@@ -10,6 +10,7 @@
 :root{
   --accent:#b76e79;           /* dusty pink */
   --accent-dark:#8e4a57;
+  --cream:#fffff2;
   --sage:#8f9f8a;             /* sage green */
   --sage-light:#e6ede6;
   --muted:#6b6b6b;
@@ -125,6 +126,42 @@ p{
   color:var(--muted)
 }
 
+/* Wedding colour swatches */
+.colour-swatches {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.swatch-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.15);
+  display: inline-block;
+}
+
+.swatch-box.sage {
+  background: var(--sage);
+}
+
+.swatch-box.dusty {
+  background: var(--accent);
+}
+
+    .swatch-box.cream {
+  background: var(--cream);
+}
+
+    
 /* Timeline / section list */
 .section-list{
   list-style:none;
@@ -502,13 +539,54 @@ details[open] .chev{transform:rotate(180deg)}
 
 <details>
   <summary>
-    <span>What is the dress code?</span>
+    <span>What is the wedding dress code?</span>
     <span class="chev" aria-hidden="true">▾</span>
   </summary>
   <div class="faq-body">
-    We are finalising the wedding dress and overall attire guidance. Please check back for the official dress code closer to the date.
+    <strong>Festive formal / Garden party</strong>
+    
+    We invite you to dress up to celebrate our day ✨  
+    Think <strong>nice dresses</strong> (hats welcome if you’d like!) and <strong>suits with ties</strong>. 
+
+    <br></br>
+    
+    We’d love to see <strong>bright colours, florals, and summery patterns</strong>.
+
+    <br></br>
+
+    We’ll also be dancing the night away with a ceilidh, so <strong>kilts are very welcome</strong>.
+
+    <br><br>
+    The marquee and dance floor have a <strong>hard floor</strong>, but parts of the farm have a <strong>grassy garden</strong>—so you may want to choose footwear accordingly (heels are welcome, but you might sink in a bit!).
   </div>
 </details>
+
+
+<details>
+  <summary>
+    <span>What are the wedding colours?</span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="faq-body">
+    Our wedding colours are <strong>sage green</strong>, <strong>dusty pink</strong> and <strong>soft ivory</strong>.
+
+    <div class="colour-swatches">
+      <div class="swatch">
+        <span class="swatch-box sage"></span>
+        <span>Sage Green</span>
+      </div>
+      <div class="swatch">
+        <span class="swatch-box dusty"></span>
+        <span>Dusty Pink</span>
+      </div>
+      <div class="swatch">
+        <span class="swatch-box cream"></span>
+        <span> Soft Ivory</span>
+      </div>
+    </div>
+  </div>
+</details>
+
 
 <details>
   <summary>
