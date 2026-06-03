@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Brittany &amp; Christopher — Wedding Livestream</title>
+  <meta name="description" content="Wedding livestream for Brittany &amp; Christopher">
+
+  <style>
+:root{
+  --accent:#b76e79;           /* dusty pink */
+  --accent-dark:#8e4a57;
+  --cream:#fffff2;
+  --sage:#8f9f8a;             /* sage green */
+  --sage-light:#e6ede6;
+  --muted:#6b6b6b;
+  --max-width:1100px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  line-height:1.5;
+  margin:0;
+  color:#222;
+  background:#fff;
+}
+
+.container{
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:28px;
+}
+
+@media(max-width:600px){
+  .container{padding:16px}
+}
+
+/* Hero */
+.hero{
+  min-height:38vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.25)),
+    url('IMG_2268.JPEG') 30% 30% /cover no-repeat;
+  color:#fff;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.hero-inner{
+  padding:48px;
+  text-align:center;
+}
+
+.couple{
+  font-family:'Playfair Display',serif;
+  font-size:40px;
+  letter-spacing:0.4px;
+  margin:0;
+}
+
+.date{
+  margin-top:8px;
+  color:rgba(255,255,255,0.95);
+  font-weight:600;
+}
+
+@media(max-width:600px){
+  .hero{min-height:32vh}
+  .hero-inner{padding:28px}
+  .couple{font-size:26px}
+  .date{font-size:14px}
+}
+
+.card{
+  background:
+    linear-gradient(180deg,#fff,rgba(143,159,138,0.04));
+  border-radius:10px;
+  padding:20px;
+  box-shadow:0 6px 20px rgba(24,24,24,0.06);
+  margin-top:26px;
+}
+
+h2{
+  font-family:'Playfair Display',serif;
+  margin:0 0 8px 0;
+  font-size:24px;
+}
+
+p{
+  margin:0 0 12px 0;
+  color:var(--muted);
+}
+
+a{
+  color:var(--accent-dark);
+}
+
+.btn{
+  display:inline-block;
+  padding:12px 20px;
+  background:var(--accent);
+  color:#fff;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  box-shadow:0 6px 20px rgba(183,110,121,0.18);
+  transition:background .2s ease;
+}
+
+.btn:hover{background:var(--accent-dark)}
+
+.small{font-size:13px}
+.muted{color:var(--muted)}
+
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,#eee,transparent);
+  margin:18px 0;
+  border-radius:2px;
+}
+
+/* Responsive livestream iframe */
+.stream-wrap{
+  width:100%;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+  padding-top:56.25%;
+  background:#000;
+  box-shadow:0 6px 20px rgba(24,24,24,0.08);
+}
+
+.stream-wrap iframe{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.notice{
+  background:var(--sage-light);
+  border:1px solid rgba(143,159,138,0.5);
+  border-radius:10px;
+  padding:14px 16px;
+  margin-top:16px;
+}
+
+.instructions{
+  padding-left:20px;
+  color:var(--muted);
+}
+
+.instructions li{
+  margin-bottom:8px;
+}
+
+footer{
+  margin:36px 0 120px 0;
+  text-align:center;
+  color:#888;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header class="hero" role="banner">
+      <div class="hero-inner">
+        <h1 class="couple">Brittany Warren &amp; Christopher Brown</h1>
+        <div class="date">Wedding Livestream — Saturday, August 1, 2026</div>
+      </div>
+    </header>
+
+    <main role="main">
+      <section class="card">
+        <h2>Wedding Livestream</h2>
+        <p class="muted">
+          We’re so glad you can join us from afar. The ceremony is scheduled to begin at
+          <strong>1:00pm UK time</strong>. The livestream should appear below shortly before the ceremony begins.
+        </p>
+
+        <div class="stream-wrap">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/YOUR_VIDEO_ID_HERE"
+            title="Brittany and Christopher Wedding Livestream"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="notice">
+          <p><strong>To watch:</strong> press play on the video above.</p>
+          <p class="small muted">
+            If the video does not load, try refreshing this page. You can also open the stream directly on YouTube using the button below.
+          </p>
+          <p>
+            <a class="btn" href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID_HERE" target="_blank" rel="noopener">
+              Open on YouTube
+            </a>
+          </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>Having trouble?</h2>
+        <ol class="instructions">
+          <li>Refresh this page.</li>
+          <li>Press play on the video.</li>
+          <li>Check that your sound is turned up.</li>
+          <li>If it still does not work, press the “Open on YouTube” button above.</li>
+        </ol>
+
+        <p class="small muted">
+          The livestream may begin a little before the ceremony so everyone has time to get connected.
+        </p>
+
+        <div class="divider"></div>
+
+        <p>
+          <a href="/index.html">← Back to wedding website</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <img src="brown-howell.png" height="90" alt="Brown Howell crest">
+    </footer>
+  </div>
+</body>
+</html>
